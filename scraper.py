@@ -1,6 +1,9 @@
 from bs4 import BeautifulSoup
 import requests
 import html5lib
+import time
+import csv
+from random import randint
 
 
 def clean_link(link):
@@ -18,12 +21,8 @@ def create_entry(html):
     # grab the description
     description = html.find('span', attrs={'class': 'st'}).text
     # stash the relevant bits in a dict
-    data = {
-        "Title": title,
-        "Link": link,
-        "Description": description,
-        "Action Required": ""
-    }
+    data = [title, link, description]
+
     return data
 
 
@@ -44,21 +43,46 @@ def process_page(start):
     return ol
 
 
+def write_csv(data):
+    with open(path, "wb") as output_file:
+        writer = csv.writer(output_file, delimiter=",")
+        for row in data:
+            writer.writerow(row)
+
+
 # application
 if __name__ == "__main__":
 
-    # increment in 10's  (stop at 240)
     start = 0
     increment = 10
-    end = 240
+    count = 20
+    path = "results.csv"
+    fields = ["Title", "Link", "Description"]
+    # write headers
+    write_csv(fields)
+    # count = 250
 
-    ol = process_page(start)
-    # empty container for entries
-    entries = []
-    # process the list
-    for child in ol.children:
-        entry = create_entry(child)
-    # add to entries list
-        entries.append(entry)
+    # process pages in batches of 10 - stop at 240
+    while start != count:
+        ol = process_page(start)
+        # process the list
+        for child in ol.children:
+            # empty container for entries
+            #entries = []
+            entry = create_entry(child)
 
-    print(entries)
+            #entries.append(entry)
+            write_csv(entry)
+
+        # set a random delay between 1 and 15 seconds
+        delay = randint(1, 15)
+        print("Pausing for {} Seconds".format(delay))
+        time.sleep(delay)
+        # increment counter
+        start += increment
+        print("Query complete")
+
+
+
+
+
