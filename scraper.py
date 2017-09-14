@@ -44,10 +44,9 @@ def process_page(start):
 
 
 def write_csv(data):
-    with open(path, "wb") as output_file:
+    with open(path, "w") as output_file:
         writer = csv.writer(output_file, delimiter=",")
-        for row in data:
-            writer.writerow(row)
+        writer.writerow(data)
 
 
 # application
@@ -55,8 +54,8 @@ if __name__ == "__main__":
 
     start = 0
     increment = 10
-    count = 20
-    path = "results.csv"
+    count = 50
+    path = "./results.csv"
     fields = ["Title", "Link", "Description"]
     # write headers
     write_csv(fields)
@@ -75,7 +74,7 @@ if __name__ == "__main__":
             write_csv(entry)
 
         # set a random delay between 1 and 15 seconds
-        delay = randint(1, 15)
+        delay = randint(1, 5)
         print("Pausing for {} Seconds".format(delay))
         time.sleep(delay)
         # increment counter
