@@ -41,12 +41,17 @@ if __name__ == "__main__":
     terms = query.terms()
     # Generate URL
     url = query.url(terms)
-    
+
     # process pages in batches of 10 - stop at 240
     while start <= total_entries:
         # grab 10 search results
         results = process.process_page(url, start)
         # process the list
+        # break if none or no more results
+        if not results:
+            print("No more results.")
+            break
+
         for child in results.children:
             # TODO: Use a dictionary
             # write 10 entries at a time, as opposed to writing row by row
