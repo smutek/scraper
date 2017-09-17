@@ -25,13 +25,17 @@ Increment a counter as needed to get the next page of results. Rinse & repeat.
 Use requests to fetch the page, html5lib to parse, and BS4 to extract the info.
 Use CSV to write to CSV.
 
-##Requires 
+## Requires 
 - BeautifulSoup4
 - html5lib
 
 ## ToDo 
-- Build the loop & counter
-- Output to CSV
+- Build an interface to do the following:
+    - Prompt for search terms
+    - Prompt for num pages
+    - Prompt for file name
+        - Prompt for new, overwrite, append, etc.
+    - Construct query based on user input
 - Clean up
 
 

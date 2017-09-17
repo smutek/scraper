@@ -2,7 +2,6 @@ import requests
 import html5lib
 import time
 import csv
-import textwrap
 from bs4 import BeautifulSoup
 from random import randint
 
