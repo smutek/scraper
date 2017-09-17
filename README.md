@@ -46,8 +46,8 @@ Assumes you have python3 installed, along with pip3.
 ## Notes
 
 Note that there's no error checking to speak of. I wrote this mainly for my own use,
- so use at your own risk, and your on your own - though if you know how to use this
- I dare say you probably know of another better way to do what this does. :)
+ so use at yer own risk, ye'r on yer own - though if you know how to use this
+ I dare say you probably know of another better faster way to do what this does. :)
   
   Regardless, this was fun. I really like Python.
 
