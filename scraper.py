@@ -2,6 +2,7 @@ import requests
 import html5lib
 import time
 import csv
+from query import Query
 from bs4 import BeautifulSoup
 from random import randint
 
@@ -27,11 +28,11 @@ def create_entry(html):
 
 def process_page(page_number):
     # base url to start
-    base_url = "https://www.google.com/search?as_q=&as_epq=%22Dean+Klag%22" \
-               "+site" \
-               ":jhsph.edu&start="
+    # base_url = "https://www.google.com/search?as_q=&as_epq=%22Dean+Klag%22" \
+    #           "+site" \
+    #           ":jhsph.edu&start="
     # url to target
-    target_url = base_url + str(page_number)
+    target_url = url + str(page_number)
     # get the page
     page = requests.get(target_url)
     # get html from the page
@@ -52,21 +53,42 @@ def write_csv(data):
 # application
 if __name__ == "__main__":
 
+    print("Enter number of entries to scrape. Default is 400 (40 pages).")
+    total_entries = int(input("How many entries:"))
+    # ToDo: error handling (everywhere)
+    if not total_entries:
+        total_entries = 400
+
     start = 0
     increment = 10
-    total_entries = 400
-    path = "./results.csv"
+
+    print("Enter file name for results, if it does not exist.")
+    print("CSV only, format as filename.csv")
+    filename = str.lower(input("Filename: "))
+
+    if not filename:
+        filename = "results.csv"
+
+    path = "./" + filename
+    # ToDo: Allow user to set headers
     headers = ["Page Title", "Page Link", "Description", "Action Needed",
                "Assigned To", "Completed"]
     # write headers
     write_csv(headers)
 
+    # Instantiate query class
+    query = Query()
+    # Prompt user for search terms
+    terms = query.terms()
+    # Generate URL
+    url = query.url(terms)
+
     # process pages in batches of 10 - stop at 240
     while start <= total_entries:
         # grab 10 search results
-        ol = process_page(start)
+        results = process_page(start)
         # process the list
-        for child in ol.children:
+        for child in results.children:
             # TODO: Use a dictionary
             # write 10 entries at a time, as opposed to writing row by row
             entry = create_entry(child)
