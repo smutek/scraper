@@ -1,8 +1,9 @@
-from bs4 import BeautifulSoup
 import requests
 import html5lib
 import time
 import csv
+import textwrap
+from bs4 import BeautifulSoup
 from random import randint
 
 
@@ -22,16 +23,16 @@ def create_entry(html):
     description = html.find('span', attrs={'class': 'st'}).text
     # stash the relevant bits in a dict
     data = [title, link, description]
-
     return data
 
 
-def process_page(start):
+def process_page(page_number):
     # base url to start
-    base_url = "https://www.google.com/search?as_q=&as_epq=%22Dean+Klag%22+site" \
-           ":jhsph.edu&start="
+    base_url = "https://www.google.com/search?as_q=&as_epq=%22Dean+Klag%22" \
+               "+site" \
+               ":jhsph.edu&start="
     # url to target
-    target_url = base_url + str(start)
+    target_url = base_url + str(page_number)
     # get the page
     page = requests.get(target_url)
     # get html from the page
@@ -39,12 +40,12 @@ def process_page(start):
     # search results are in a div with ID of ires
     container = soup.find(id="ires")
     # and wrapped in an ordered list
-    ol = container.find("ol")
-    return ol
+    data = container.find("ol")
+    return data
 
 
 def write_csv(data):
-    with open(path, "w") as output_file:
+    with open(path, "a") as output_file:
         writer = csv.writer(output_file, delimiter=",")
         writer.writerow(data)
 
@@ -54,34 +55,33 @@ if __name__ == "__main__":
 
     start = 0
     increment = 10
-    count = 50
+    total_entries = 400
     path = "./results.csv"
-    fields = ["Title", "Link", "Description"]
+    headers = ["Page Title", "Page Link", "Description", "Action Needed",
+               "Assigned To", "Completed"]
     # write headers
-    write_csv(fields)
-    # count = 250
+    write_csv(headers)
 
     # process pages in batches of 10 - stop at 240
-    while start != count:
+    while start <= total_entries:
+        # grab 10 search results
         ol = process_page(start)
         # process the list
         for child in ol.children:
-            # empty container for entries
-            #entries = []
+            # TODO: Use a dictionary
+            # write 10 entries at a time, as opposed to writing row by row
             entry = create_entry(child)
-
-            #entries.append(entry)
+            # write the row to CSV
             write_csv(entry)
 
+        print("{} entries processed and written to CSV.".format(start+10))
+
         # set a random delay between 1 and 15 seconds
-        delay = randint(1, 5)
+        delay = randint(1, 3)
         print("Pausing for {} Seconds".format(delay))
         time.sleep(delay)
         # increment counter
         start += increment
-        print("Query complete")
 
-
-
-
-
+    print("{} total entries processed and written to CSV".format(start))
+    print("Query Complete")
