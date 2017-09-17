@@ -31,14 +31,9 @@ Use CSV to write to CSV.
 - html5lib
 - Requests
 
-## ToDo 
-- Build an interface to do the following:
-    - Prompt for search terms
-    - Prompt for num pages
-    - Prompt for file name
-        - Prompt for new, overwrite, append, etc.
-    - Construct query based on user input
-- Class based
+## ToDo
+- Error handling (there is none)
+- More Class based
 - Clean up
 
 

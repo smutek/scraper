@@ -97,7 +97,8 @@ if __name__ == "__main__":
 
         print("{} entries processed and written to CSV.".format(start+10))
 
-        # set a random delay between 1 and 15 seconds
+        # set a random delay between 1 and 3 seconds
+        # so google doesn't think we are a bot
         delay = randint(1, 3)
         print("Pausing for {} Seconds".format(delay))
         time.sleep(delay)
