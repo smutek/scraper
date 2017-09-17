@@ -31,9 +31,23 @@ Use CSV to write to CSV.
 - html5lib
 - Requests
 
+## To use
+
+Assumes you have python3 installed, along with pip3.
+
+- Install requirements however you see fit. I use a virtualenv
+- Use `python3 scraper.py`
+- Follow the prompts
+
 ## ToDo
-- Error handling (there is none)
-- More Class based
+- Error handling (there is very little)
 - Clean up
 
+## Notes
+
+Note that there's no error checking to speak of. I wrote this mainly for my own use,
+ so use at your own risk, and your on your own - though if you know how to use this
+ I dare say you probably know of another better way to do what this does. :)
+  
+  Regardless, this was fun. I really like Python.
 
