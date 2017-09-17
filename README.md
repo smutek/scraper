@@ -25,9 +25,11 @@ Increment a counter as needed to get the next page of results. Rinse & repeat.
 Use requests to fetch the page, html5lib to parse, and BS4 to extract the info.
 Use CSV to write to CSV.
 
-## Requires 
+## Requires
+- Python 3
 - BeautifulSoup4
 - html5lib
+- Requests
 
 ## ToDo 
 - Build an interface to do the following:
@@ -36,6 +38,7 @@ Use CSV to write to CSV.
     - Prompt for file name
         - Prompt for new, overwrite, append, etc.
     - Construct query based on user input
+- Class based
 - Clean up
 
 
