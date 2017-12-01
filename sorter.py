@@ -19,8 +19,8 @@ save to new csv
 if __name__ == "__main__":
 
     # open/create files
-    old_file = './jhsph.csv'
-    new_file = './jhsph_update.csv'
+    old_file = './coa.csv'
+    new_file = './coa_sorted.csv'
 
     # write headers to new file
     with open(new_file, "a") as output_file:
