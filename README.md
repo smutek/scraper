@@ -1,7 +1,7 @@
 # List of Links Super Scraper Maker
 
 Turn some Google search results into a list that can be exported to CSV &
-imported to Google Docs or Excel or something. 
+imported to Google Docs or Excel or etc. 
 
 Pass a search string in, get a page (10 results), and pull the needed info. 
 Increment a counter as needed to get the next page of results. Rinse & repeat.
